@@ -1,2 +1,3 @@
 # rushTheMusic
-the game repository
+The game repository
+modif test
