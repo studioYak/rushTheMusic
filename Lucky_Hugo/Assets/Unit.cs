@@ -4,7 +4,6 @@ using System.Collections;
 public abstract class Unit : MonoBehaviour {
 
 	int hp;
-	int[] position = new int[3];
 	int damage;
 	int movementSpeed;
 	string attackType;
@@ -20,9 +19,12 @@ public abstract class Unit : MonoBehaviour {
 		
 	}
 
-	public Unit(int hp, int[] position, int damage, int movementSpeed, string attackType, string name){
+	void Update(){
+		Debug.Log ("test");
+	}
+
+	public Unit(int hp, int damage, int movementSpeed, string attackType, string name){
 		this.hp = hp;
-		this.position = position;
 		this.damage = damage;
 		this.movementSpeed = movementSpeed;
 		this.attackType = attackType;
@@ -35,15 +37,6 @@ public abstract class Unit : MonoBehaviour {
 		}
 		set {
 			hp = value;
-		}
-	}
-
-	public int[] Position {
-		get {
-			return this.position;
-		}
-		set {
-			position = value;
 		}
 	}
 
@@ -82,18 +75,34 @@ public abstract class Unit : MonoBehaviour {
 			name = value;
 		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	void Attack(int x, int y, int z){
+		
 	}
 
-	void Attack(){
-
-	}
-
-	void LostHP(int hpLost){
+	public void LostHP(int hpLost){
 		hp = hp - hpLost;
+	}
+
+	public void setPosition(int x,int y, int z)
+	{
+		this.transform.position.x = x;
+		this.transform.position.y = y;
+		this.transform.position.z = z;
+	}
+
+	public int[] getPosition()
+	{
+		int x = this.transform.position.x;
+		int y = this.transform.position.y;
+		int z = this.transform.position.z;
+
+		return new int[] {x,y,z};
+	}
+
+	public void Run()
+	{
+
 	}
 
 	bool isDie(){
