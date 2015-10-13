@@ -84,18 +84,18 @@ public abstract class Unit : MonoBehaviour {
 		hp = hp - hpLost;
 	}
 
-	public void SetPosition(int x,int y, int z)
+	public void SetPosition(float x,float y, float z)
 	{
 		this.transform.position = new Vector3 (x, y, z);
 	}
 
-	public int[] GetPosition()
+	public float[] GetPosition()
 	{
-		int x = this.transform.position.x;
-		int y = this.transform.position.y;
-		int z = this.transform.position.z;
+		float x = this.transform.position.x;
+		float y = this.transform.position.y;
+		float z = this.transform.position.z;
 
-		return new int[] {x,y,z};
+		return new float[] {x,y,z};
 	}
 
 	public abstract void Run ();
