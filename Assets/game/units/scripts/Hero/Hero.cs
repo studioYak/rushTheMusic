@@ -47,15 +47,6 @@ public abstract class Hero : Unit {
 		}
 	}
 
-	public string Name {
-		get {
-			return this.name;
-		}
-		set {
-			name = value;
-		}
-	}
-
 	public int PowerQuantity {
 		get {
 			return this.powerQuantity;
@@ -97,22 +88,6 @@ public abstract class Hero : Unit {
 		this.transform.position += new Vector3(0,0,base.MovementSpeed);
 	}
 
-	// Defense du hero
-	void OnTriggerEnter(Collider hit) {
-		if(hit.transform.tag == "weapon"){
-			GameObject ennemy = hit.gameObject;
-
-			if(!Defending){ // heros qui attaque ou se fait attaquer sans se defendre
-
-					hit.SendMessage("LostHP", Damage);
-					//Debug.Log(ennemy.GetComponent<BasicDragonet>().Hp);
-
-			} else { // se fait attaquer en defendant
-				Debug.Log("Touché avec défense !");
-			}
-		}
-	}
-
 	void DefenseMode(){
 		if (Defending) {
 			Defending = false;
@@ -120,7 +95,4 @@ public abstract class Hero : Unit {
 			Defending = true;
 		}
 	}
-
-
-
 }

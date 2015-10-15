@@ -13,8 +13,8 @@ public class Wall : NPC {
 	
 	}
 
-	public Wall(int attackSpeed, int xpGain, int blocking, int hp, int damage, int movementSpeed, string attackType, string name)
-		:base(attackSpeed, xpGain, blocking, hp, damage, movementSpeed, attackType, name){
+	public Wall()
+		:base(0, 0, 2, 100, 0, 10, "cac", "anonymous"){
 		
 	}
 

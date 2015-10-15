@@ -14,8 +14,8 @@ public class Assassin : NPC {
 		//Debug.Log (this.Position[2]);
 	}
 
-	public Assassin(int attackSpeed, int xpGain, int blocking, int hp, int damage, int movementSpeed, string attackType, string name)
-		:base(attackSpeed, xpGain, blocking, hp, damage, movementSpeed, attackType, name){
+	public Assassin()
+		:base(0, 8, 1, 40, 100, 12, "derriere", "anonymous"){
 		
 	}
 }
