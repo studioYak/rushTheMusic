@@ -17,7 +17,7 @@ public class Warrior : Hero {
 	}
 
 	public Warrior()
-		:base(0,"epee",100, 5, 0, false, 500,  new int [] {10, 0, 12}, 12, 3, "CAC", "Bob"){
+		:base(0,"epee",100, 5, 0, false, 500, 12, 3, "CAC", "Bob"){
 
 	}
 	

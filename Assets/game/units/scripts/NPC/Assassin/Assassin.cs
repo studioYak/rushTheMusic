@@ -6,7 +6,6 @@ public class Assassin : NPC {
 	// Use this for initialization
 	void Start () {
 		Debug.Log (this.Name);
-		Debug.Log (this.Position[2]);
 	}
 	
 	// Update is called once per frame
