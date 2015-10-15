@@ -9,12 +9,12 @@ public class GameController : MonoBehaviour {
 	public GameObject terrain;
 
 	public GameObject basicLancer;
+	public GameObject basicDragonet;
 
 	private GameObject ter;
 
 	private float vitesseHeros = 5.0f;
 	private float tempsMusique = 240f;
-	private float vitesseParFrame;
 
 	private List<GameObject> npcList;
 
@@ -24,7 +24,6 @@ public class GameController : MonoBehaviour {
 	private bool bloque = false;
 	// Use this for initialization
 	void Start () {
-		vitesseParFrame  = vitesseHeros / 60;
 		//lire fichier niveau
 
 		//Génération de terrain
@@ -38,6 +37,7 @@ public class GameController : MonoBehaviour {
 		npcList = new List<GameObject> ();
 		npcList.Add( Instantiate(basicLancer, new Vector3(0, 0, vitesseHeros*20), Quaternion.identity) as GameObject);
 		npcList.Add( Instantiate(basicLancer, new Vector3(0, 0, vitesseHeros*30), Quaternion.identity) as GameObject);
+		npcList.Add( Instantiate(basicDragonet, new Vector3(0, 0, vitesseHeros*50), Quaternion.identity) as GameObject);
 
 	}
 	
@@ -47,7 +47,7 @@ public class GameController : MonoBehaviour {
 		//Gestion héros
 		if (!bloque) {
 			//faire avancer Héros
-			Camera.allCameras[0].transform.position += new Vector3(0, 0, vitesseParFrame);
+			Camera.allCameras[0].transform.Translate(Vector3.forward * Time.deltaTime * vitesseHeros, Space.World);
 		}
 
 		//Gestion premier ennemi
@@ -64,7 +64,7 @@ public class GameController : MonoBehaviour {
 
 				//avancer si aggro
 				if (distance < 50) {
-					npcList [0].transform.position += new Vector3 (0, 0, -(float)firstNPC.MovementSpeed / 60);
+					npcList [0].transform.Translate(new Vector3 (0, 0, -1) * Time.deltaTime * (float)firstNPC.MovementSpeed, Space.World);
 					firstNPC.SetPosition (firstNPC.GetPosition () [0], 1.0f, firstNPC.GetPosition () [2]);
 				}
 
