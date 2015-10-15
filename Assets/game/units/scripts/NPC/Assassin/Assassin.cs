@@ -6,7 +6,6 @@ public class Assassin : NPC {
 	// Use this for initialization
 	void Start () {
 		Debug.Log (this.Name);
-		Debug.Log (this.Position[2]);
 	}
 	
 	// Update is called once per frame
@@ -15,8 +14,8 @@ public class Assassin : NPC {
 		//Debug.Log (this.Position[2]);
 	}
 
-	public Assassin(int attackSpeed, int xpGain, int blocking, int hp, int damage, int movementSpeed, string attackType, string name)
-		:base(attackSpeed, xpGain, blocking, hp, damage, movementSpeed, attackType, name){
+	public Assassin()
+		:base(0, 8, 1, 40, 100, 12, "derriere", "anonymous"){
 		
 	}
 }

@@ -13,8 +13,8 @@ public class BasicLancer : Lancer {
 		
 	}
 
-	public BasicLancer(int attackSpeed, int xpGain, int blocking, int hp, int damage, int movementSpeed, string attackType, string name)
-		:base(attackSpeed, xpGain, blocking, hp, damage, movementSpeed, attackType, name){
+	public BasicLancer()
+		:base(0, 5, 1, 30, 300, 10, "cac", "anonymous"){
 
 	}
 }

@@ -13,8 +13,8 @@ public class FireDragonet : Dragonet {
 		
 	}
 
-	public FireDragonet(int attackSpeed, int xpGain, int blocking, int hp, int damage, int movementSpeed, string attackType, string name)
-		:base(attackSpeed, xpGain, blocking, hp, damage, movementSpeed, attackType, name){
+	public FireDragonet()
+		:base(0, 6, 1, 30, 15, 10, "semiDistance", "anonymous"){
 
 	}
 }

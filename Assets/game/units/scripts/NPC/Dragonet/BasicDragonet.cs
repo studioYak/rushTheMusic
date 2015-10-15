@@ -14,8 +14,8 @@ public class BasicDragonet : Dragonet {
 		
 	}
 
-	public BasicDragonet(int attackSpeed, int xpGain, int blocking, int hp, int damage, int movementSpeed, string attackType, string name)
-		:base(attackSpeed, xpGain, blocking, hp, damage, movementSpeed, attackType, name){
+	public BasicDragonet()
+		:base(0, 5, 1, 30, 15, 5, "semiDistance", "anonymous"){
 		
 	}
 }
