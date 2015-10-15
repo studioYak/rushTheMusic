@@ -15,8 +15,8 @@ public class Monk : Hero {
 		
 	}
 
-	public Monk(int xpQuantity, string handAttack, int powerQuantity, int hpRefresh, int powerRefresh, bool defending, int hp, int damage, int movementSpeed, string attackType, string name)
-		:base(xpQuantity, handAttack, powerQuantity, hpRefresh, powerRefresh, defending, hp, damage, movementSpeed, attackType, name){
+	public Monk()
+		:base(0,"armeHast",1000, 1, 1, false, 800, 15, 3, "semiDistance", "anonymous"){
 
 	}
 	

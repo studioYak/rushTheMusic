@@ -13,8 +13,8 @@ public class IceLancer : Lancer {
 		
 	}
 
-	public IceLancer(int attackSpeed, int xpGain, int blocking, int hp, int damage, int movementSpeed, string attackType, string name)
-		:base(attackSpeed, xpGain, blocking, hp, damage, movementSpeed, attackType, name){
+	public IceLancer()
+		:base(0, 7, 1, 40, 400, 10, "cac", "anonymous"){
 
 	}
 }

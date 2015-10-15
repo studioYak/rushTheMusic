@@ -13,8 +13,8 @@ public class Cannon : NPC {
 		
 	}
 	
-	public Cannon(int attackSpeed, int xpGain, int blocking, int hp, int damage, int movementSpeed, string attackType, string name)
-	:base(attackSpeed, xpGain, blocking, hp, damage, movementSpeed, attackType, name){
+	public Cannon()
+	:base(0, 0, 0, 60, 75, 5, "distance", "anonymous"){
 		
 	}
 	
