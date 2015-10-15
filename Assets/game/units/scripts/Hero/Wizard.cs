@@ -15,8 +15,8 @@ public class Wizard : Hero {
 		
 	}
 
-	public Wizard(int xpQuantity, string handAttack, int powerQuantity, int hpRefresh, int powerRefresh, bool defending, int hp, int[] position, int damage, int movementSpeed, string attackType, string name)
-		:base(xpQuantity, handAttack, powerQuantity, hpRefresh, powerRefresh, defending, hp, position, damage, movementSpeed, attackType, name){
+	public Wizard(int xpQuantity, string handAttack, int powerQuantity, int hpRefresh, int powerRefresh, bool defending, int hp, int damage, int movementSpeed, string attackType, string name)
+		:base(xpQuantity, handAttack, powerQuantity, hpRefresh, powerRefresh, defending, hp, damage, movementSpeed, attackType, name){
 		
 	}
 	
