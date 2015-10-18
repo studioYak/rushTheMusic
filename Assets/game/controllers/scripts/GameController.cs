@@ -55,7 +55,9 @@ public class GameController : MonoBehaviour {
 	private float maxTimerBloque = 5.0f;
 
 	private float timerGeste = 0.0f;
-	private float maxTimerGeste = 1.0f;
+	private float maxTimerGesteAttaque = 1.0f;
+	private float maxTimerGesteDefense = 2.0f;
+	private LeapControl.ActionState lastState;
 
 	private bool bloque = false;
 
@@ -158,14 +160,33 @@ public class GameController : MonoBehaviour {
 		}
 
 
-		if (leapControl.actionState == LeapControl.ActionState.ATTACK) {
+		if (leapControl.actionState != LeapControl.ActionState.REST) {
 
-			if (npcList.Count > 0) {
-				Debug.Log ("attackkkkkkkk");
-				npcList [0].GetComponent<NPC> ().LostHP( hero.Damage);
-				if (npcList [0].GetComponent<NPC> ().HealthPoint < 0) {
-					npcList [0].GetComponent<NPC> ().Die();
-					npcList.RemoveAt(0);
+			if (lastState == LeapControl.ActionState.REST){
+
+
+				if (leapControl.actionState == LeapControl.ActionState.ATTACK) {
+
+					if (npcList.Count > 0) {
+						Debug.Log ("attackkkkkkkk");
+						npcList [0].GetComponent<NPC> ().LostHP (hero.Damage);
+						if (npcList [0].GetComponent<NPC> ().HealthPoint < 0) {
+							npcList [0].GetComponent<NPC> ().Die ();
+							npcList.RemoveAt (0);
+						}
+					}
+				}
+			}else{
+				//MAJ timer
+				timerGeste += Time.deltaTime;
+
+				if (
+					lastState == LeapControl.ActionState.ATTACK && timerGeste > maxTimerGesteAttaque ||
+					lastState == LeapControl.ActionState.DEFENSE && timerGeste > maxTimerGesteDefense){
+
+					timerGeste = 0.0f;
+					leapControl.actionState = LeapControl.ActionState.REST;
+					lastState = LeapControl.ActionState.REST;
 				}
 			}
 		}
