@@ -135,7 +135,7 @@ public abstract class Hero : Unit {
 		transform.Translate(base.MovementSpeed * Vector3.forward * deltaTime, Space.World);
 	}
 
-	void DefenseMode(string mode){
+	public void DefenseMode(string mode){
 		if (mode == "off") {
 			Defending = false;
 		} else {
