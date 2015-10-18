@@ -16,7 +16,7 @@ public class Wizard : Hero {
 	}
 
 	public Wizard()
-		:base(0,"baton",1000, 4, 4, false, 1100, 8, 3, "distance", "anonymous"){
+		:base(0,100,"baton",1000, 4, 4, false, 1100, 8, 3, "distance", "anonymous"){
 		
 	}
 	

@@ -14,7 +14,7 @@ public class IceLancer : Lancer {
 	}
 
 	public IceLancer()
-		:base(0, 7, 1, 40, 400, 10, "cac", "anonymous"){
+		:base(2.0f, 7, 40, 400, 10, "cac", "anonymous"){
 
 	}
 }

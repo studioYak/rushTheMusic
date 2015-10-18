@@ -16,7 +16,7 @@ public class Monk : Hero {
 	}
 
 	public Monk()
-		:base(0,"armeHast",1000, 1, 1, false, 800, 15, 3, "semiDistance", "anonymous"){
+		:base(0,50,"armeHast",1000, 1, 1, false, 800, 15, 3, "semiDistance", "anonymous"){
 
 	}
 	

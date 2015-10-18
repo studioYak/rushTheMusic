@@ -14,7 +14,7 @@ public class Cannon : NPC {
 	}
 	
 	public Cannon()
-	:base(0, 0, 0, 60, 75, 5, "distance", "anonymous"){
+	:base(2.0f, 0, Blocking.FREE, 60, 75, 5, "distance", "anonymous"){
 		
 	}
 	

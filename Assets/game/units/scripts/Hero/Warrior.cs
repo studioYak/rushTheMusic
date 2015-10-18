@@ -17,7 +17,7 @@ public class Warrior : Hero {
 	}
 
 	public Warrior()
-		:base(0,"epee",1000, 2, 2, false, 1000, 10, 3, "cac", "anonymous"){
+		:base(0,100,"epee",1000, 2, 2, false, 1000, 10, 3, "cac", "anonymous"){
 
 	}
 	

@@ -15,7 +15,7 @@ public class Assassin : NPC {
 	}
 
 	public Assassin()
-		:base(0, 8, 1, 40, 100, 12, "derriere", "anonymous"){
+		:base(2.0f, 8, Blocking.FREE, 40, 100, 12, "derriere", "anonymous"){
 		
 	}
 }

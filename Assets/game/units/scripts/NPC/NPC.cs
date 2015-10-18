@@ -3,9 +3,20 @@ using System.Collections;
 
 public abstract class NPC : Unit {
 
-	int attackSpeed;
+	public enum Blocking {
+		FREE,
+		SEMIBLOCK,
+		BLOCK,
+	};
+
+	float attackSpeed;
+	float lastAttack;
 	int xpGain;
-	int blocking; // 0:free, 1:semi-block, 2:block
+
+	int aggroDistance;
+	int attackDistance;
+	int distanceToDisappear;
+	Blocking blocking;
 
 	// Use this for initialization
 	void Start () {
@@ -14,23 +25,57 @@ public abstract class NPC : Unit {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 
-	public NPC(int attackSpeed, int xpGain, int blocking, int hp, int damage, int movementSpeed, string attackType, string name)
+	public NPC(float attackSpeed, int xpGain, Blocking blocking, int hp, int damage, int movementSpeed, string attackType, string name)
 	:base(hp, damage, movementSpeed, attackType, name){
-		// Debug.Log (this.Hp);
 		AttackSpeed = attackSpeed;
 		XpGain = xpGain;
-		Blocking = blocking;
+
+		aggroDistance = 30;
+		attackDistance = 4;
+		distanceToDisappear = 2;
+		this.blocking = blocking;
 	}
 
-	public int AttackSpeed {
+	public UnitAction Act(Vector3 character, float deltaTime)
+	{
+		base.Action = new UnitAction(0,0,0);
+		if(GetPosition()[2] < character.z - distanceToDisappear)
+		{
+			Disappear();
+		}
+		else if(GetPosition()[2] - character.z < attackDistance)
+		{
+			Attack(character);
+		}
+		else if(GetPosition()[2] - character.z < aggroDistance)
+		{
+			Run(deltaTime);
+		}
+		else if(GetPosition()[2] - character.z < aggroDistance + 1)
+		{
+			WakeUp(deltaTime);
+		}
+		return base.Action;
+	}
+
+	public float AttackSpeed {
 		get {
 			return this.attackSpeed;
 		}
 		set {
 			attackSpeed = value;
+		}
+	}
+
+	public float LastAttack {
+		get {
+			return this.lastAttack;
+		}
+		set {
+			lastAttack = value;
 		}
 	}
 
@@ -43,7 +88,22 @@ public abstract class NPC : Unit {
 		}
 	}
 
-	public int Blocking {
+
+	public void Attack(Vector3 character)
+	{
+		if(LastAttack + AttackSpeed < Time.time )
+		{
+			base.Action = new UnitAction(character.x,character.y,character.z);
+			base.Action.SetActionAsAttack(Damage);
+			LastAttack = Time.time;
+		}
+		else
+		{
+			base.Action = new UnitAction(0,0,0);
+		}
+	}
+
+	public Blocking BlockingType{
 		get {
 			return this.blocking;
 		}
@@ -52,8 +112,15 @@ public abstract class NPC : Unit {
 		}
 	}
 
-	public override void Run()
+	public void Disappear()
 	{
-		this.transform.position -= new Vector3(0,0,base.MovementSpeed);
+		base.Action = new UnitAction(0,0,0);
+		base.Action.SetActionAsDisappear();
+	}
+
+	public override void Run(float deltaTime)
+	{
+		base.Action = new UnitAction(0,0,0);
+		transform.Translate(base.MovementSpeed * (-Vector3.forward) * deltaTime, Space.World);
 	}
 }

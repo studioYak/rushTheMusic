@@ -10,11 +10,11 @@ public class BasicLancer : Lancer {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
 	public BasicLancer()
-		:base(0, 5, 1, 30, 300, 10, "cac", "anonymous"){
+		:base(2.0f, 5, 30, 300, 10, "cac", "anonymous"){
 
 	}
 }

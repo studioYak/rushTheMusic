@@ -6,9 +6,11 @@ public abstract class Hero : Unit {
 	int xpQuantity;
 	string handAttack;
 	int powerQuantity;
+	int maxPowerQuantity;
 	int hpRefresh;
 	int powerRefresh;
 	bool defending;
+	int blockingPercent;
 
 	// Use this for initialization
 	void Start () {
@@ -20,13 +22,15 @@ public abstract class Hero : Unit {
 		Debug.Log ("test");
 	}
 
-	public Hero(int xpQuantity, string handAttack, int powerQuantity, int hpRefresh, int powerRefresh, bool defending, int hp, int damage, int movementSpeed, string attackType, string name)
+	public Hero(int xpQuantity,int blockingPercent, string handAttack, int powerQuantity, int hpRefresh, int powerRefresh, bool defending, int hp, int damage, int movementSpeed, string attackType, string name)
 		:base(hp, damage, movementSpeed, attackType, name){
 		XpQuantity = xpQuantity;
 		HandAttack = handAttack;
-		PowerRefresh = powerRefresh;
+		PowerQuantity = powerQuantity;
+		MaxPowerQuantity = powerQuantity;
 		HpRefresh = hpRefresh;
 		PowerRefresh = powerRefresh;
+		BlockingPercent = blockingPercent;
 	}
 
 	public int XpQuantity {
@@ -35,6 +39,15 @@ public abstract class Hero : Unit {
 		}
 		set {
 			xpQuantity = value;
+		}
+	}
+
+	public int BlockingPercent {
+		get {
+			return this.blockingPercent;
+		}
+		set {
+			blockingPercent = value;
 		}
 	}
 
@@ -53,6 +66,15 @@ public abstract class Hero : Unit {
 		}
 		set {
 			powerQuantity = value;
+		}
+	}
+
+	public int MaxPowerQuantity {
+		get {
+			return this.maxPowerQuantity;
+		}
+		set {
+			maxPowerQuantity = value;
 		}
 	}
 
@@ -83,9 +105,9 @@ public abstract class Hero : Unit {
 		}
 	}
 
-	public override void Run()
+	public override void Run(float deltaTime)
 	{
-		this.transform.position += new Vector3(0,0,base.MovementSpeed);
+		transform.Translate(base.MovementSpeed * Vector3.forward * deltaTime, Space.World);
 	}
 
 	void DefenseMode(){

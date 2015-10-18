@@ -14,7 +14,7 @@ public class FireLancer : Lancer {
 	}
 
 	public FireLancer()
-		:base(0, 6, 1, 30, 300, 10, "cac", "anonymous"){
+		:base(2.0f, 6, 30, 300, 10, "cac", "anonymous"){
 
 	}
 }

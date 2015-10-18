@@ -14,7 +14,7 @@ public class Wall : NPC {
 	}
 
 	public Wall()
-		:base(0, 0, 2, 100, 0, 10, "cac", "anonymous"){
+		:base(0.0f, 0, Blocking.BLOCK, 100, 10, 0, "cac", "anonymous"){
 		
 	}
 

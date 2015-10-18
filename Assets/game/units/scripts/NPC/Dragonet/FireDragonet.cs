@@ -14,7 +14,7 @@ public class FireDragonet : Dragonet {
 	}
 
 	public FireDragonet()
-		:base(0, 6, 1, 30, 15, 10, "semiDistance", "anonymous"){
+		:base(2.0f, 6, 30, 15, 10, "semiDistance", "anonymous"){
 
 	}
 }
