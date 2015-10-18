@@ -112,7 +112,7 @@ public abstract class Hero : Unit {
 		float damageToLost = 0.0f;
 		if(Defending)
 		{
-			damageToLost = damage/blockingPercent;
+			damageToLost = damage - (blockingPercent*damage/100);
 		}
 		else
 		{
