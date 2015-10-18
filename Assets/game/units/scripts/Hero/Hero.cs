@@ -11,6 +11,7 @@ public abstract class Hero : Unit {
 	int powerRefresh;
 	bool defending;
 	int blockingPercent;
+	float range;
 
 	// Use this for initialization
 	void Start () {
@@ -23,7 +24,7 @@ public abstract class Hero : Unit {
 	}
 
 	public Hero(int xpQuantity,int blockingPercent, string handAttack, int powerQuantity, int hpRefresh, int powerRefresh, bool defending, int hp, int damage, int movementSpeed, string attackType, string name)
-		:base(hp, damage, movementSpeed, attackType, name){
+		:base(hp, 1000*damage, movementSpeed, attackType, name){
 		XpQuantity = xpQuantity;
 		HandAttack = handAttack;
 		PowerQuantity = powerQuantity;
@@ -31,6 +32,7 @@ public abstract class Hero : Unit {
 		HpRefresh = hpRefresh;
 		PowerRefresh = powerRefresh;
 		BlockingPercent = blockingPercent;
+		range = 4;
 	}
 
 	public int XpQuantity {
@@ -39,6 +41,15 @@ public abstract class Hero : Unit {
 		}
 		set {
 			xpQuantity = value;
+		}
+	}
+
+	public float Range {
+		get {
+			return this.range;
+		}
+		set {
+			range = value;
 		}
 	}
 
@@ -96,6 +107,20 @@ public abstract class Hero : Unit {
 		}
 	}
 
+	public void LostHP(int damage)
+	{
+		float damageToLost = 0.0f;
+		if(Defending)
+		{
+			damageToLost = damage - (blockingPercent*damage/100);
+		}
+		else
+		{
+			damageToLost = damage;
+		}
+		base.LostHP((int)damageToLost);
+	}
+
 	bool Defending {
 		get {
 			return this.defending;
@@ -110,8 +135,8 @@ public abstract class Hero : Unit {
 		transform.Translate(base.MovementSpeed * Vector3.forward * deltaTime, Space.World);
 	}
 
-	void DefenseMode(){
-		if (Defending) {
+	public void DefenseMode(string mode){
+		if (mode == "off") {
 			Defending = false;
 		} else {
 			Defending = true;
