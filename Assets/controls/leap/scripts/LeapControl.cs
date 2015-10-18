@@ -18,7 +18,8 @@ public class LeapControl : MonoBehaviour {
 	
 	public ActionState actionState = ActionState.REST;
 	
-	public Vector3 initShieldPosition; //game controller
+	public Vector3 initShieldPosition; //a mettre dans game controller
+	public Vector3 initSwordPosition; //a mettre dans game controller
 	
 	/** The underlying Leap Motion Controller object.*/
 	protected Controller leap_controller_;
@@ -68,6 +69,7 @@ public class LeapControl : MonoBehaviour {
 		//pointerLeftHand = Instantiate (debugLeapCanvasPrefab) as GameObject;
 		
 		initShieldPosition = pointerLeftHand.transform.localPosition;
+		initSwordPosition = pointerRightHand.transform.localPosition;
 		
 		//same init pos
 		projectionMainGauche.transform.position = pointerLeftHand.transform.position;
@@ -255,7 +257,26 @@ public class LeapControl : MonoBehaviour {
 		
 		movementLabel.text = actionState.ToString() + " ( "+ nAction.ToString()+" )";
 	}
-	
+
+	/**
+	 * Remet les projections mains gauche et main droite dans leur position de repos (vers le bas de l'écran).
+	 * En général, a appeler quand on respasse l'actionState à REST
+	 **/
+	public function backToInitialPosition()
+	{
+		//remet en état initial la main gauche
+		projectionMainGauche.transform.parent = heroAsParent.transform;
+		Vector3 restPositionL = projectionMainGauche.transform.position;
+		restPositionL.x = initShieldPosition.x;
+		restPositionL.y = initShieldPosition.y;
+		
+		projectionMainGauche.transform.position =  restPositionL;
+
+		Vector3 restPositionR = projectionMainDroite.transform.position;
+		restPositionR.x = initSwordPosition.x;
+		restPositionR.y = initSwordPosition.y;
+		projectionMainDroite.transform.position = restPositionR;
+	}
 	
 }
 
