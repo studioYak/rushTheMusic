@@ -173,6 +173,7 @@ public class GameController : MonoBehaviour {
 					
 					timerGeste = 0.0f;
 					leapControl.actionState = LeapControl.ActionState.REST;
+					leapControl.backToInitialPosition();
 					lastState = LeapControl.ActionState.REST;
 					actionDone = false;
 				}
