@@ -176,21 +176,29 @@ public class GameController : MonoBehaviour {
 					leapControl.backToInitialPosition();
 					lastState = LeapControl.ActionState.REST;
 					actionDone = false;
+					hero.DefenseMode("off");
 				}
 
 			}else{
 				if (lastState == LeapControl.ActionState.ATTACK) {
 					
 					if (npcList.Count > 0) {
-						Debug.Log ("attackkkkkkkk");
-						npcList [0].GetComponent<NPC> ().LostHP (hero.Damage);
-						if (npcList [0].GetComponent<NPC> ().HealthPoint < 0) {
-							npcList [0].GetComponent<NPC> ().Die ();
-							npcList.RemoveAt (0);
-							if (bloque)
-								bloque = false;
+
+					
+						float distance = (npcList [0].transform.position.z - hero.GetPosition()[2]);
+						if (distance < hero.Range){
+							npcList [0].GetComponent<NPC> ().LostHP (hero.Damage);
+							if (npcList [0].GetComponent<NPC> ().HealthPoint < 0) {
+								npcList [0].GetComponent<NPC> ().Die ();
+								npcList.RemoveAt (0);
+								if (bloque)
+									bloque = false;
+							}
 						}
 					}
+				}else if(lastState == LeapControl.ActionState.DEFENSE) {
+
+					hero.DefenseMode("on");
 				}
 				actionDone = true;
 			}
