@@ -144,7 +144,8 @@ public class LeapControl : MonoBehaviour {
 			actionState = ActionState.DEFENSE;
 			timeAction = Time.time;
 		}
-		else
+		/*else
+		 * //desactivation pour sprint 1 car bug
 			//si on a une acceleration vers le haut rapide : chest open
 			if ((leftHand != null && leftHand.IsValid && leftHand.PalmVelocity.y > 700 && leftHand.PalmVelocity.z < 300 && leftHand.PalmVelocity.z < 300) || (rightHand != null && rightHand.IsValid && rightHand.PalmVelocity.y > 700  && rightHand.PalmVelocity.z < 300 && rightHand.PalmVelocity.z < 300))
 		{
@@ -152,7 +153,7 @@ public class LeapControl : MonoBehaviour {
 			
 			actionState = ActionState.CHEST;
 			timeAction = Time.time;
-		}
+		}*/
 	}
 	
 	public ActionState getActionState() {
@@ -226,43 +227,14 @@ public class LeapControl : MonoBehaviour {
 		}
 		
 		
-		//vérifie si on doit terminer un état en cours
-		if (actionState != ActionState.REST) {
-			if (actionState == ActionState.ATTACK || actionState == ActionState.CHEST)
-			{
-				if (Time.time - timeAction > 1)
-					actionState = ActionState.REST;
-			}
-			else if (actionState == ActionState.DEFENSE)
-			{
-				if (Time.time - timeAction > 2)
-				{
-					actionState = ActionState.REST;
-					
-					//remet en état initial
-					projectionMainGauche.transform.parent = heroAsParent.transform;
-					Vector3 restPosition = projectionMainGauche.transform.position;
-					restPosition.x = initShieldPosition.x;
-					restPosition.y = initShieldPosition.y;
-					
-					projectionMainGauche.transform.position =  restPosition;
-					
-				}
-			}
-			else if (actionState == ActionState.CHEST)
-			{
-				if (Time.time - timeAction > 1)
-					actionState = ActionState.REST;
-			}
-			
-			
-			
-		}
+
 		//ne cherche les actions que si on est pas déjà en mvt
 		if(actionState == ActionState.REST)
 			GestureDetection ();
 		
-		/*var h =  Input.mousePosition.x;
+		/*
+		 * //debut de code souris, a voir pour le prochain sprint
+		 * var h =  Input.mousePosition.x;
 		var v = Input.mousePosition.y;
 
 		//debut codage souris
