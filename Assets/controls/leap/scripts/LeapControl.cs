@@ -18,7 +18,8 @@ public class LeapControl : MonoBehaviour {
 	
 	public ActionState actionState = ActionState.REST;
 	
-	public Vector3 initShieldPosition; //game controller
+	public Vector3 initShieldPosition; //a mettre dans game controller
+	public Vector3 initSwordPosition; //a mettre dans game controller
 	
 	/** The underlying Leap Motion Controller object.*/
 	protected Controller leap_controller_;
@@ -68,6 +69,7 @@ public class LeapControl : MonoBehaviour {
 		//pointerLeftHand = Instantiate (debugLeapCanvasPrefab) as GameObject;
 		
 		initShieldPosition = pointerLeftHand.transform.localPosition;
+		initSwordPosition = pointerRightHand.transform.localPosition;
 		
 		//same init pos
 		projectionMainGauche.transform.position = pointerLeftHand.transform.position;
@@ -144,7 +146,8 @@ public class LeapControl : MonoBehaviour {
 			actionState = ActionState.DEFENSE;
 			timeAction = Time.time;
 		}
-		else
+		/*else
+		 * //desactivation pour sprint 1 car bug
 			//si on a une acceleration vers le haut rapide : chest open
 			if ((leftHand != null && leftHand.IsValid && leftHand.PalmVelocity.y > 700 && leftHand.PalmVelocity.z < 300 && leftHand.PalmVelocity.z < 300) || (rightHand != null && rightHand.IsValid && rightHand.PalmVelocity.y > 700  && rightHand.PalmVelocity.z < 300 && rightHand.PalmVelocity.z < 300))
 		{
@@ -152,7 +155,7 @@ public class LeapControl : MonoBehaviour {
 			
 			actionState = ActionState.CHEST;
 			timeAction = Time.time;
-		}
+		}*/
 	}
 	
 	public ActionState getActionState() {
@@ -226,43 +229,14 @@ public class LeapControl : MonoBehaviour {
 		}
 		
 		
-		//vérifie si on doit terminer un état en cours
-		if (actionState != ActionState.REST) {
-			if (actionState == ActionState.ATTACK || actionState == ActionState.CHEST)
-			{
-				if (Time.time - timeAction > 1)
-					actionState = ActionState.REST;
-			}
-			else if (actionState == ActionState.DEFENSE)
-			{
-				if (Time.time - timeAction > 2)
-				{
-					actionState = ActionState.REST;
-					
-					//remet en état initial
-					projectionMainGauche.transform.parent = heroAsParent.transform;
-					Vector3 restPosition = projectionMainGauche.transform.position;
-					restPosition.x = initShieldPosition.x;
-					restPosition.y = initShieldPosition.y;
-					
-					projectionMainGauche.transform.position =  restPosition;
-					
-				}
-			}
-			else if (actionState == ActionState.CHEST)
-			{
-				if (Time.time - timeAction > 1)
-					actionState = ActionState.REST;
-			}
-			
-			
-			
-		}
+
 		//ne cherche les actions que si on est pas déjà en mvt
 		if(actionState == ActionState.REST)
 			GestureDetection ();
 		
-		/*var h =  Input.mousePosition.x;
+		/*
+		 * //debut de code souris, a voir pour le prochain sprint
+		 * var h =  Input.mousePosition.x;
 		var v = Input.mousePosition.y;
 
 		//debut codage souris
@@ -283,7 +257,26 @@ public class LeapControl : MonoBehaviour {
 		
 		movementLabel.text = actionState.ToString() + " ( "+ nAction.ToString()+" )";
 	}
-	
+
+	/**
+	 * Remet les projections mains gauche et main droite dans leur position de repos (vers le bas de l'écran).
+	 * En général, a appeler quand on respasse l'actionState à REST
+	 **/
+	public function backToInitialPosition()
+	{
+		//remet en état initial la main gauche
+		projectionMainGauche.transform.parent = heroAsParent.transform;
+		Vector3 restPositionL = projectionMainGauche.transform.position;
+		restPositionL.x = initShieldPosition.x;
+		restPositionL.y = initShieldPosition.y;
+		
+		projectionMainGauche.transform.position =  restPositionL;
+
+		Vector3 restPositionR = projectionMainDroite.transform.position;
+		restPositionR.x = initSwordPosition.x;
+		restPositionR.y = initSwordPosition.y;
+		projectionMainDroite.transform.position = restPositionR;
+	}
 	
 }
 

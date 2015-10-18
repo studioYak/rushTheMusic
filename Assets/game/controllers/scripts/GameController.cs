@@ -54,6 +54,12 @@ public class GameController : MonoBehaviour {
 	private float timerBloque = 0.0f;
 	private float maxTimerBloque = 5.0f;
 
+	private float timerGeste = 0.0f;
+	private float maxTimerGesteAttaque = 1.0f;
+	private float maxTimerGesteDefense = 2.0f;
+	private LeapControl.ActionState lastState;
+	private bool actionDone = false;
+
 	private bool bloque = false;
 
 	private bool deathDone = false;
@@ -153,6 +159,44 @@ public class GameController : MonoBehaviour {
 			hero.Run(Time.deltaTime);
 			Camera.main.transform.position = new Vector3(0, 2.18f, hero.GetPosition()[2]);
 		}
+
+		if (lastState == LeapControl.ActionState.REST) {
+			lastState = leapControl.actionState;
+		} else {
+			if (actionDone){
+				//maj timer
+				timerGeste += Time.deltaTime;
+				
+				if (
+					lastState == LeapControl.ActionState.ATTACK && timerGeste > maxTimerGesteAttaque ||
+					lastState == LeapControl.ActionState.DEFENSE && timerGeste > maxTimerGesteDefense){
+					
+					timerGeste = 0.0f;
+					leapControl.actionState = LeapControl.ActionState.REST;
+					leapControl.backToInitialPosition();
+					lastState = LeapControl.ActionState.REST;
+					actionDone = false;
+				}
+
+			}else{
+				if (lastState == LeapControl.ActionState.ATTACK) {
+					
+					if (npcList.Count > 0) {
+						Debug.Log ("attackkkkkkkk");
+						npcList [0].GetComponent<NPC> ().LostHP (hero.Damage);
+						if (npcList [0].GetComponent<NPC> ().HealthPoint < 0) {
+							npcList [0].GetComponent<NPC> ().Die ();
+							npcList.RemoveAt (0);
+							if (bloque)
+								bloque = false;
+						}
+					}
+				}
+				actionDone = true;
+			}
+		}
+
+
 		
 		//Gestion premier ennemi
 			
