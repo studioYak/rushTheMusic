@@ -54,6 +54,9 @@ public class GameController : MonoBehaviour {
 	private float timerBloque = 0.0f;
 	private float maxTimerBloque = 5.0f;
 
+	private float timerGeste = 0.0f;
+	private float maxTimerGeste = 1.0f;
+
 	private bool bloque = false;
 
 	private bool deathDone = false;
@@ -153,6 +156,20 @@ public class GameController : MonoBehaviour {
 			hero.Run(Time.deltaTime);
 			Camera.main.transform.position = new Vector3(0, 2.18f, hero.GetPosition()[2]);
 		}
+
+
+		if (leapControl.actionState == LeapControl.ActionState.ATTACK) {
+
+			if (npcList.Count > 0) {
+				Debug.Log ("attackkkkkkkk");
+				npcList [0].GetComponent<NPC> ().LostHP( hero.Damage);
+				if (npcList [0].GetComponent<NPC> ().HealthPoint < 0) {
+					npcList [0].GetComponent<NPC> ().Die();
+					npcList.RemoveAt(0);
+				}
+			}
+		}
+
 		
 		//Gestion premier ennemi
 			
