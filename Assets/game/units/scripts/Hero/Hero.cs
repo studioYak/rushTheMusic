@@ -11,6 +11,7 @@ public abstract class Hero : Unit {
 	int powerRefresh;
 	bool defending;
 	int blockingPercent;
+	float range;
 
 	// Use this for initialization
 	void Start () {
@@ -31,6 +32,7 @@ public abstract class Hero : Unit {
 		HpRefresh = hpRefresh;
 		PowerRefresh = powerRefresh;
 		BlockingPercent = blockingPercent;
+		range = 4;
 	}
 
 	public int XpQuantity {
@@ -39,6 +41,15 @@ public abstract class Hero : Unit {
 		}
 		set {
 			xpQuantity = value;
+		}
+	}
+
+	public float Range {
+		get {
+			return this.range;
+		}
+		set {
+			range = value;
 		}
 	}
 
