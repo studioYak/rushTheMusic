@@ -34,7 +34,7 @@ public abstract class NPC : Unit {
 		XpGain = xpGain;
 
 		aggroDistance = 30;
-		attackDistance = 4;
+		attackDistance = 3;
 		distanceToDisappear = 2;
 		this.blocking = blocking;
 	}
@@ -42,19 +42,20 @@ public abstract class NPC : Unit {
 	public UnitAction Act(Vector3 character, float deltaTime)
 	{
 		base.Action = new UnitAction(0,0,0);
-		if(GetPosition()[2] < character.z - distanceToDisappear)
+		Vector3 position = GetPosition();
+		if(position.z < character.z - distanceToDisappear)
 		{
 			Disappear();
 		}
-		else if(GetPosition()[2] - character.z < attackDistance)
+		else if(position.z - character.z < attackDistance)
 		{
 			Attack(character);
 		}
-		else if(GetPosition()[2] - character.z < aggroDistance)
+		else if(position.z - character.z < aggroDistance)
 		{
 			Run(deltaTime);
 		}
-		else if(GetPosition()[2] - character.z < aggroDistance + 1)
+		else if(position.z - character.z < aggroDistance + 1)
 		{
 			WakeUp(deltaTime);
 		}

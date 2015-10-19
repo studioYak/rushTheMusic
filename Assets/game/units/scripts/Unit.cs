@@ -120,13 +120,13 @@ public abstract class Unit : MonoBehaviour {
 		this.transform.position = new Vector3 (this.transform.position.x, height, this.transform.position.z);
 	}
 
-	public float[] GetPosition()
+	public Vector3 GetPosition()
 	{
 		float x = this.transform.position.x;
 		float y = this.transform.position.y;
 		float z = this.transform.position.z;
 
-		return new float[] {x,y,z};
+		return new Vector3(x,y,z);
 	}
 	
 	public abstract void Run (float deltaTime);
