@@ -11,6 +11,8 @@ public abstract class Unit : MonoBehaviour {
 	string attackType;
 	string name;
 	UnitAction action;
+	protected GameObject weapon;
+	protected GameObject shield;
 
 	// Use this for initialization
 	void Start () {
