@@ -3,6 +3,7 @@ using System.Collections;
 
 public class BasicLancer : Lancer {
 	
+	public GameObject lancePrefab;
 	// Use this for initialization
 	void Start () {
 		gameObject.GetComponent<Renderer>().material.color = Color.black;
@@ -15,6 +16,6 @@ public class BasicLancer : Lancer {
 
 	public BasicLancer()
 		:base(2.0f, 5, 30, 300, 10, "cac", "anonymous"){
-
+		base.weapon = Object.Instantiate(lancePrefab);
 	}
 }
