@@ -50,8 +50,60 @@ public class LeapControl : MonoBehaviour {
 	
 	
 	private int nAction = 0;
-	
-	
+
+	private GameController.HandSide attackHand;
+	private GameController.HandSide defenseHand;
+
+	/**
+	 * Sets which hand (right or left) is the attack hand.
+	 * At the same time, defines which defense hand it is (by inverse logic).
+	 * It means you don't have to call both setAttackHand or setDefenseHand
+	 **/
+	public void setAttackHand(GameController.HandSide attackSide)
+	{
+		attackHand = attackSide;
+		defenseHand = (attackSide == GameController.HandSide.RIGHT_HAND ? GameController.HandSide.LEFT_HAND : GameController.HandSide.RIGHT_HAND);
+	}
+
+	/**
+	 * Sets which hand (right or left) is the attack hand.
+	 * At the same time, defines which defense hand it is (by inverse logic)
+	 * It means you don't have to call both setAttackHand or setDefenseHand
+	 **/
+	public void setDefenseHand(GameController.HandSide defenseSide)
+	{
+		attackHand = (defenseSide == GameController.HandSide.RIGHT_HAND ? GameController.HandSide.LEFT_HAND : GameController.HandSide.RIGHT_HAND);
+		defenseHand = defenseSide;
+	}
+
+	/**
+	 * Returns the Vector 3 Position of the LeapMotion right or left hand (according to
+	 * setAttackHand)
+	 * internals pointerLeftHand/pointerRightHand must be already initialized
+	 * internal attackHand must be set with setAttackHand() first
+	 **/
+	public Vector3 getAttackPointer()
+	{
+		if (attackHand == GameController.HandSide.RIGHT_HAND)
+			return pointerRightHand.transform.position;
+		else
+			return pointerLeftHand.transform.position;
+	}
+
+	/**
+	 * Returns the Vector 3 Position of the LeapMotion right or left hand (according to
+	 * setAttackHand)
+	 * internals pointerLeftHand/pointerRightHand must be already initialized
+	 * internal attackHand must be set with setAttackHand() first
+	 **/
+	public Vector3 getDefensePointer()
+	{
+		if (attackHand == GameController.HandSide.RIGHT_HAND)
+			return pointerLeftHand.transform.position;
+		else
+			return pointerRightHand.transform.position;
+	}
+
 	// Use this for initialization
 	void OnEnable () {
 		
