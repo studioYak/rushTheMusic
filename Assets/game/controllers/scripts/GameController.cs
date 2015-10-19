@@ -13,6 +13,11 @@ public class GameController : MonoBehaviour {
 		DEAD,
 	};
 
+	public enum HandSide {
+		RIGHT_HAND,
+		LEFT_HAND,
+	};
+
 	private const string FILE_PATH = "Assets/ressources/json/GL_exJson.json";
 
 	public GameObject terrain;
@@ -46,6 +51,8 @@ public class GameController : MonoBehaviour {
 
 	private GameState state;
 
+	private HandSide handSide;
+
 
 	private float tempsMusique = 240f;
 
@@ -66,6 +73,9 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		//recupération des options
+		handSide = HandSide.LEFT_HAND;
+
 		//lire fichier niveau
 		TestJson parser = new TestJson (FILE_PATH);
 
@@ -78,7 +88,9 @@ public class GameController : MonoBehaviour {
 		leapInstance = Instantiate (leapPrefab);
 		leapInstance.transform.parent = transform;
 		leapControl = leapInstance.GetComponent<LeapControl>();
+		leapControl.setAttackHand (handSide);
 		leapControl.addParent(heroGameObject);
+
 
 
 		//Génération de terrain
@@ -157,7 +169,7 @@ public class GameController : MonoBehaviour {
 		if (!bloque) {
 			//faire avancer Héros
 			hero.Run(Time.deltaTime);
-			Camera.main.transform.position = new Vector3(0, 2.18f, hero.GetPosition()[2]);
+			Camera.main.transform.position = new Vector3(0, 2.18f, hero.GetPosition().z);
 		}
 
 		if (lastState == LeapControl.ActionState.REST) {
@@ -185,7 +197,7 @@ public class GameController : MonoBehaviour {
 					if (npcList.Count > 0) {
 
 					
-						float distance = (npcList [0].transform.position.z - hero.GetPosition()[2]);
+						float distance = (npcList [0].transform.position.z - hero.GetPosition().z);
 						if (distance < hero.Range){
 							npcList [0].GetComponent<NPC> ().LostHP (hero.Damage);
 							if (npcList [0].GetComponent<NPC> ().HealthPoint < 0) {
@@ -211,7 +223,7 @@ public class GameController : MonoBehaviour {
 		if (npcList.Count > 0) {
 			NPC firstNPC = npcList [0].GetComponent<NPC> ();
 			
-			UnitAction action = firstNPC.Act(new Vector3(hero.GetPosition()[0],hero.GetPosition()[1],hero.GetPosition()[2]), Time.deltaTime);
+			UnitAction action = firstNPC.Act(new Vector3(hero.GetPosition().x,hero.GetPosition().y,hero.GetPosition().z), Time.deltaTime);
 			
 			if(action.IsAttack)
 			{
@@ -224,7 +236,7 @@ public class GameController : MonoBehaviour {
 
 			if (npcList.Count > 0) {
 				firstNPC = npcList [0].GetComponent<NPC> ();
-				float distance = (firstNPC.transform.position.z - hero.GetPosition()[2]);
+				float distance = (firstNPC.transform.position.z - hero.GetPosition().z);
 				if (distance < 5) 
 				{
 
