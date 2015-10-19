@@ -14,7 +14,7 @@ public abstract class NPC : Unit {
 	int xpGain;
 
 	int aggroDistance;
-	int attackDistance;
+	float attackDistance;
 	int distanceToDisappear;
 	Blocking blocking;
 
@@ -34,7 +34,7 @@ public abstract class NPC : Unit {
 		XpGain = xpGain;
 
 		aggroDistance = 30;
-		attackDistance = 3;
+		attackDistance = 3.5f;
 		distanceToDisappear = 2;
 		this.blocking = blocking;
 	}
