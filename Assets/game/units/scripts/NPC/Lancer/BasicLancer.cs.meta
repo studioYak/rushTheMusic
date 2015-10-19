@@ -1,10 +1,11 @@
 fileFormatVersion: 2
 guid: d73e1ef94ee6dbc4bb11d626de5bf15a
-timeCreated: 1445003922
+timeCreated: 1445268002
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - LancePrefab: {fileID: 118478, guid: fbdafafba19c6d54abee745a13bd6eb0, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

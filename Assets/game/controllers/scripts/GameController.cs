@@ -70,11 +70,17 @@ public class GameController : MonoBehaviour {
 	private bool bloque = false;
 
 	private bool deathDone = false;
+
+
+
+
+	public GameObject weapon;
+
 	// Use this for initialization
 	void Start () {
 
 		//recupération des options
-		handSide = HandSide.LEFT_HAND;
+		handSide = HandSide.RIGHT_HAND;
 
 		//lire fichier niveau
 		TestJson parser = new TestJson (FILE_PATH);
@@ -135,6 +141,7 @@ public class GameController : MonoBehaviour {
 
 			if (go != null){
 				npcList.Add( Instantiate(go, new Vector3(ennemy.PositionInX, 0, vitesseHeros*ennemy.PositionInSeconds), Quaternion.identity) as GameObject);
+				//Instantiate(weapon, new Vector3(ennemy.PositionInX, 0, vitesseHeros*ennemy.PositionInSeconds), Quaternion.identity);
 			}
 		}
 
@@ -295,6 +302,15 @@ public class GameController : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.R)){
 			Restart();
 		}
+	}
+
+	void NPCAttacksHero(){
+	}
+
+	void HeroBlocks(){
+	}
+
+	void HeroAttacksNPC(){
 	}
 
 	public void Restart() {
