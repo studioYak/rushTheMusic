@@ -262,7 +262,7 @@ public class LeapControl : MonoBehaviour {
 	 * Remet les projections mains gauche et main droite dans leur position de repos (vers le bas de l'écran).
 	 * En général, a appeler quand on respasse l'actionState à REST
 	 **/
-	public function backToInitialPosition()
+	public void backToInitialPosition()
 	{
 		//remet en état initial la main gauche
 		projectionMainGauche.transform.parent = heroAsParent.transform;
