@@ -52,6 +52,7 @@ MonoBehaviour:
     type: 2}
   pointerDefenseHandPrefab: {fileID: 101304, guid: 5910132e4105cb748a578abc4ccf2ca9,
     type: 2}
+  dbgSphere: {fileID: 142858, guid: 10cf148249fcb654e81ce8b1a187dfa9, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -112,6 +113,10 @@ Prefab:
       propertyPath: defenseProjectionPrefab
       value: 
       objectReference: {fileID: 118146, guid: 368d1c905e92b5549acc014ca226c8e6, type: 2}
+    - target: {fileID: 0}
+      propertyPath: dbgSphere
+      value: 
+      objectReference: {fileID: 142858, guid: 10cf148249fcb654e81ce8b1a187dfa9, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 142260}

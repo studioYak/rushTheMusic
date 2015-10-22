@@ -40,7 +40,10 @@ public class LeapControl : MonoBehaviour {
 	private GameObject pointerAttackHand;
 	public GameObject pointerDefenseHandPrefab;
 	private GameObject pointerDefenseHand;
-	
+
+	public GameObject dbgSphere;
+	public GameObject debugSphereObject;
+
 	Hand rightHand = null;
 	Hand leftHand = null;
 	
@@ -133,6 +136,8 @@ public class LeapControl : MonoBehaviour {
 	 **/
 	void OnEnable () 
 	{
+		debugSphereObject = Instantiate (dbgSphere);
+
 		debugLeapCanvas = Instantiate (debugLeapCanvasPrefab);
 		attackProjection = Instantiate (attackProjectionPrefab);
 		defenseProjection = Instantiate (defenseProjectionPrefab);
@@ -147,7 +152,6 @@ public class LeapControl : MonoBehaviour {
 		//setAttackHand(GameController.HandSide.RIGHT_HAND);
 	
 		Debug.Log ("Fin de Start LeapControl.cs ");
-		
 		
 	}
 	
@@ -166,6 +170,8 @@ public class LeapControl : MonoBehaviour {
 	{
 		leap_controller_ = new Controller();
 		Debug.Log("Awake, new Controller:"+leap_controller_);
+
+		//leap_controller_.
 	}
 	
 	/**
@@ -184,16 +190,7 @@ public class LeapControl : MonoBehaviour {
 			else
 				nAction = defense(nAction);
 		}
-		/*else
-		 * //desactivation pour sprint 1 car bug
-			//si on a une acceleration vers le haut rapide : chest open
-			if ((leftHand != null && leftHand.IsValid && leftHand.PalmVelocity.y > 700 && leftHand.PalmVelocity.z < 300 && leftHand.PalmVelocity.z < 300) || (rightHand != null && rightHand.IsValid && rightHand.PalmVelocity.y > 700  && rightHand.PalmVelocity.z < 300 && rightHand.PalmVelocity.z < 300))
-		{
-			nAction++;
-			
-			actionState = ActionState.CHEST;
-			timeAction = Time.time;
-		}*/
+
 	}
 
 	/**
@@ -244,17 +241,62 @@ public class LeapControl : MonoBehaviour {
 	public ActionState getActionState() {
 		return actionState;
 	}
+
+	Leap.Vector leapToWorld(Leap.Vector leapPoint, InteractionBox iBox)
+	{
+		leapPoint.z *= -1.0f; //right-hand to left-hand rule
+		Leap.Vector normalized = iBox.NormalizePoint(leapPoint, false);
+		normalized += new Leap.Vector(0.5f, 0f, 0.5f); //recenter origin
+		return normalized * 100.0f; //scale
+	}
+
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
 		
 		if(leap_controller_.IsConnected && leap_controller_.IsServiceConnected())
 		{
+			string frameString;
 			
 			//polling de LM
 			Frame frame = leap_controller_.Frame();
+
+			/*InteractionBox iBox = frame.InteractionBox;
+			iBox.*/
+
+			float appWidth = Camera.allCameras[0].pixelWidth;
+			float appHeight = Camera.allCameras[0].pixelHeight;
+
+			Debug.Log("Camera Pixel Size:"+Camera.allCameras[0].pixelWidth+";"+Camera.allCameras[0].pixelHeight);
 			
-			string frameString;
+			InteractionBox iBox = frame.InteractionBox;
+			Pointable pointable = frame.Pointables.Frontmost;
+			
+			Leap.Vector leapPoint = pointable.StabilizedTipPosition;
+			//Leap.Vector normalizedPoint = iBox.NormalizePoint(leapPoint, false);
+
+			Leap.Vector t = leapToWorld(leapPoint, iBox);
+
+			
+			/*float appX = normalizedPoint.x * appWidth;
+			float appY = (1 - normalizedPoint.y) * appHeight;
+
+			Leap.Vector test = new Leap.Vector(appX, 4000+appY, 0.10f);*/
+			Vector3 testU = t.ToUnityScaled();
+			testU.z = 4;
+
+			//frameString = "x:"+appX+" ; y:"+ appY;
+			frameString = "vector3( "+testU.x+" ; " +testU.y+" ; "+testU.z+" )";
+
+			dbgSphere.transform.position = testU;
+
+
+
+
+			/** normal code
+			
+
 			
 			//debug info
 			frameString = "frame_id" + frame.Id;
@@ -303,7 +345,7 @@ public class LeapControl : MonoBehaviour {
 					GestureDetection (hand);
 				
 			}
-			
+			*/
 			leapDebugLabel.text = frameString;
 			
 		}
@@ -317,12 +359,7 @@ public class LeapControl : MonoBehaviour {
 			leapDebugLabel.text = frameString;
 		}
 		
-		
 
-		
-		
-	
-		
 		movementLabel.text = actionState.ToString() + " ( "+ nAction.ToString()+" )";
 	}
 
